@@ -1,0 +1,74 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+struct Stack {
+    Node* top;
+
+    Stack()
+    {
+        top = NULL;
+    }
+
+    void push(int value) {
+        Node* new_node = new Node;
+        new_node->data = value;
+        new_node->next = top;
+        top = new_node;
+        cout << "Pushed value " << value << " onto the stack" << endl;
+    }
+
+    int pop() {
+        if (top == NULL) {
+            cout << "Stack is empty" << endl;
+            return -1;
+        }
+        int popped_value = top->data;
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+        cout << "Popped value " << popped_value << " from the stack" << endl;
+        return popped_value;
+    }
+
+    bool is_empty() {
+        return top == NULL;
+    }
+
+    int peek() {
+        if (top == NULL) {
+            cout << "Stack is empty" << endl;
+            return -1;
+        }
+        return top->data;
+    }
+
+    int size() {
+        int count = 0;
+        Node* current = top;
+        while (current != NULL) {
+            count++;
+            current = current->next;
+        }
+        return count;
+    }
+
+    void display() {
+        if (top == NULL) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        cout << "Stack contents: ";
+        Node* current = top;
+        while (current != NULL) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+};
